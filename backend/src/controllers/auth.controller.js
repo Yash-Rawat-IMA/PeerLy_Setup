@@ -54,9 +54,44 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-    res.send("Login Route")
+    try {
+        const {email, password} = req.body;
+        // No need to add validators at the time of login
+        if(!email || !password){
+            return res.status(400).json({message: "All fields are required"})
+        }
+        
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(401).json({message:"Invalid email or password"});
+        }
+
+        const isPasswordCorrect = await user.matchPassword(password);
+
+        if(!isPasswordCorrect){
+            return res.status(401).json({message:"Invalid email or password"}); //sending invalid email or password creates the authentication more secure as user can't know the email is present in the database or not 
+        }
+
+        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET_KEY, {
+            expiresIn: "7d"
+        })
+
+        res.cookie("jwt", token, {
+            maxAge: 7 * 24 * 60 * 60 *1000,
+            httpOnly: true, //prevent XSS attacks,
+            sameSite: true, //prevent CSRF attacks,
+            secure: process.env.NODE_ENV === "production"   //for https when on production
+        })
+
+        return res.status(200).json({success:true, user});
+
+    } catch (error) {
+        console.error(`Error in login controller: ${error}`);
+        res.status(500).json({message: "Internal Server Error"});
+    }
 }
 
 export function logout(req, res) {
-    res.send("Logout Route")
+    res.clearCookie("jwt")
+    res.status(200).json({success:true, message:"Logout successfull"});
 }
