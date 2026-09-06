@@ -21,7 +21,15 @@ const PORT = process.env.PORT;
 //     res.send("Logout Route!");
 // });
 
+// middleware
+app.use(express.json());
+
+//routes
 app.use("/api/auth", authRoutes);
+app.get("/", (req, res) => {
+    console.log(req.url);
+    return res.status(200).json({message:"Server working"})
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on the port: ${PORT}`);

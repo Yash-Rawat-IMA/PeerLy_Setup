@@ -50,8 +50,6 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const User = mongoose.model("User", userSchema);
-
 //prehook: for encrypting the password
 userSchema.pre("save", async function (next) {
 
@@ -68,5 +66,8 @@ userSchema.pre("save", async function (next) {
         next(error);
     }
 })
+
+// Create the model
+const User = mongoose.model("User", userSchema);
 
 export default User;
