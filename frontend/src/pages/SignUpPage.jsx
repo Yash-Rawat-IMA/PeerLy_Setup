@@ -13,9 +13,13 @@ const SignUpPage = () => {
 
   const queryClient = useQueryClient();
 
-  const {mutate: signupMutation, isPending, error} = useMutation({
+  const {
+    mutate: signupMutation,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: signup,
-    onSuccess: () =>  queryClient.invalidateQueries({queryKey: ["authUser"]})
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
   });
 
   const handleSignup = (e) => {
@@ -32,10 +36,10 @@ const SignUpPage = () => {
         {/* Sign up form - left side */}
 
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
-          {/* logo */}
+          {/* LOGO */}
           <div className="mb-4 flex items-center justify-start gap-2">
-            <ShipWheelIcon className="size-9 text-primary" />
-            <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
+            <ShipWheelIcon className="text-primary size-9" />
+            <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-secondary tracking-wider">
               PeerLy
             </span>
           </div>
@@ -44,11 +48,12 @@ const SignUpPage = () => {
           {error && (
             <div className="alert alert-error mb-4">
               <span>
-                {error?.response?.data?.message || "Something went wrong. Please try again."}
+                {error?.response?.data?.message ||
+                  "Something went wrong!! Please try Again."}
               </span>
             </div>
           )}
-
+          {/* Sign up form */}
           <div className="w-full">
             <form onSubmit={handleSignup}>
               <div className="space-y-4">
@@ -126,36 +131,44 @@ const SignUpPage = () => {
                   {/* Terms and Conditions Checkbox */}
                   <div className="form-control">
                     <label className="label cursor-pointer justify-start gap-2">
-                      <input type="checkbox" className="checkbox checkbox-sm" required />
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-sm"
+                        required
+                      />
                       <span className="text-xs leading-tight">
-                        I agree to the {" "}
+                        I agree to the{" "}
                         <span className="text-primary hover:underline">
                           terms of service
-                        </span>and {" "}
-                        <span className="text-primary hover:underline">privacy policy</span>
+                        </span>
+                        and{" "}
+                        <span className="text-primary hover:underline">
+                          privacy policy
+                        </span>
                       </span>
                     </label>
                   </div>
                 </div>
 
-              <button className="btn btn-primary w-full" type="submit">
-                {isPending ? (
-                  <>
-                  <span className="loading loading-spinner loading-xs">
-                  </span>
-                  Loading...
-                  </>
-                ) : (
-                  "Create Account"
-                )}
+                <button className="btn btn-primary w-full" type="submit">
+                  {isPending ? (
+                    <>
+                      <span className="loading loading-spinner loading-xs"></span>
+                      Loading...
+                    </>
+                  ) : (
+                    "Create Account"
+                  )}
                 </button>
 
-              <div>
-                <p>Already have an Account?{" "}
-                  <Link to="/login" className="text-primary hover:underline">Sign In</Link>
-                </p>
-              </div>
-
+                <div>
+                  <p>
+                    Already have an Account?{" "}
+                    <Link to="/login" className="text-primary hover:underline">
+                      Sign In
+                    </Link>
+                  </p>
+                </div>
               </div>
             </form>
           </div>
@@ -171,11 +184,12 @@ const SignUpPage = () => {
 
             <div className="text-center space-y-3 mt-6">
               <h2 className="text-xl font-semibold">Connect with your Peer</h2>
-              <p className="opacity-70">Practice together, Make Friends and Improve your skills</p>
+              <p className="opacity-70">
+                Practice together, Make Friends and Improve your skills
+              </p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
