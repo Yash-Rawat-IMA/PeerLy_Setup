@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 export const FriendCard = ({ friend }) => {
   return (
-    <div className="card bg-base-200 hover:shadow-md transition-shadow">
+    <div className="card bg-base-200 hover:shadow-md transition-shadow m-2">
       <div className="card-body p-4">
         {/* User Info */}
         <div className="flex items-center gap-3 mb-3">

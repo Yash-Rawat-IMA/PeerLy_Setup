@@ -55,12 +55,6 @@ const Homepage = () => {
     }
   }, [outgoingFriendReqs]);
 
-  // useEffect(() => {
-  //   const outgoingIds = new Set(outgoingFriendReqs?.map((req) => req._id) || []);
-
-  //   setOutgoingRequestsIds(outgoingIds);
-  // }, [outgoingFriendReqs]);
-
   return (
     <div className="p-4 sm:p-6 lg:p-8">
       <div className="container mx-auto space-y-10">
@@ -81,7 +75,7 @@ const Homepage = () => {
         ) : friends.length === 0 ? (
           <NoFriendsFound />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
             {friends.map((friend) => (
               <FriendCard key={friend.id} friend={friend} />
             ))}
