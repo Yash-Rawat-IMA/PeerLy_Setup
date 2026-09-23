@@ -40,13 +40,12 @@ export async function sendFriendRequest(req, res) {
     try {
         const myId = req.user.id;
         const { id: recipientId } = req.params
-
         //prevent sending request to yourself
-        if (myId == recipientId) {
+        if (myId === recipientId) {
             return res.status(400).json({ message: "You can't send friend request to yourself" });
         }
 
-        const recipient = User.findById(recipientId);
+        const recipient = await User.findById(recipientId);
 
         //recipient exist or not
         if (!recipient) {

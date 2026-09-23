@@ -33,7 +33,7 @@ function App() {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen text-3xl" data-theme={theme}>
+    <div className="min-h-screen" data-theme={theme}>
       <Routes>
         <Route
           path="/"
