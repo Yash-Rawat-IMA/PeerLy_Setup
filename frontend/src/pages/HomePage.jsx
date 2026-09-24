@@ -19,7 +19,7 @@ import NoFriendsFound from "../components/NoFriendsFound.jsx";
 import NoRecommendedUsersFound from "../components/NoRecommendedUsersFound.jsx";
 // import RecommendedUserCard from "../components/RecommendedUserCard.jsx";
 
-const Homepage = () => {
+const HomePage = () => {
   const queryClient = useQueryClient();
 
   const [outgoingRequestsIds, setOutgoingRequestsIds] = useState(new Set());
@@ -177,4 +177,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;

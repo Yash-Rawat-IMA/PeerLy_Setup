@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 //import pages
-import Homepage from "./pages/Homepage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import CallPage from "./pages/CallPage.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
@@ -40,7 +40,7 @@ function App() {
           element={
             isAuthenticated && isOnBoarded ? (
               <Layout showSidebar={true}>
-                <Homepage />
+                <HomePage />
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
