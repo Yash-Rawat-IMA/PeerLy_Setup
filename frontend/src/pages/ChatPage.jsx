@@ -4,6 +4,7 @@ import useAuthUser from "../hooks/useAuthUser";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api";
 import ChatLoader from "../components/ChatLoader.jsx";
+import CallButton from "../components/CallButton.jsx";
 import {
   Channel,
   ChannelHeader,
@@ -14,6 +15,7 @@ import {
   Window,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
+import {toast} from "react-hot-toast";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 const ChatPage = () => {
@@ -76,12 +78,24 @@ const ChatPage = () => {
     initChat();
   }, [tokenData, authUser, targetUserId]);
 
+  const handleVideoCall = () => {
+    if(chatChannel){
+      const callUrl = `${window.location.origin}/call/${chatChannel.id}`;
+
+      chatChannel.sendMessage({
+        text: `I've started a video call. Join me here: ${callUrl}`
+      })
+      toast.success(`Video call link sent successfully`)
+    }
+  }
+
   if (loading || !chatClient || !chatChannel) return <ChatLoader />;
   return (
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={chatChannel}>
           <div className="w-full relative">
+            <CallButton handleVideoCall={handleVideoCall} />
             <Window>
               <ChannelHeader />
               <MessageList />
